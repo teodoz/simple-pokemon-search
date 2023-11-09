@@ -1,0 +1,14 @@
+<div class="form">
+  <input
+    #field
+    class="field"
+    type="text"
+    value="pikachu"
+    autofocus="true"
+    autocomplete="false"
+    (click)="field.select()"
+  />
+  <button class="btn" (click)="getPokemon(field.value)">
+    {{ loading ? "⏳" : "🔍" }}
+  </button>
+</div>

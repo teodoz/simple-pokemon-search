@@ -1,0 +1,23 @@
+.form {
+  display: flex;
+  margin: 16px 0;
+  gap: 8px;
+  position: relative;
+  width: 400px;
+  .field {
+    padding: 8px;
+    border-radius: 20px;
+    border: 1px solid grey;
+    width: 100%;
+  }
+  .btn {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+    position: absolute;
+    right: 12px;
+    top: 2px;
+    cursor: pointer;
+  }
+}
