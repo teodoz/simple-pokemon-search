@@ -5,6 +5,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media screen and (max-width: 478px) {
+    width: 100%;
+  }
   .title {
     font-weight: 400;
     text-transform: uppercase;

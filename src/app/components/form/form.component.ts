@@ -1,6 +1,14 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { PokemonData } from 'src/app/models/pokemon.model';
 import { PokemonService } from 'src/app/services/pokemon.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-form',
@@ -10,6 +18,7 @@ import { PokemonService } from 'src/app/services/pokemon.service';
 export class FormComponent implements OnInit {
   pokemon?: PokemonData;
   @Output() pokemonEmitter = new EventEmitter<PokemonData>();
+  @ViewChild('field') field: ElementRef | undefined;
 
   loading: boolean = false;
 
@@ -17,6 +26,12 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPokemon('pikachu');
+  }
+
+  checkEnter(e: KeyboardEvent) {
+    if (e.key === 'Enter') {
+      this.getPokemon(this.field?.nativeElement?.value);
+    }
   }
 
   getPokemon(name: string) {

@@ -7,6 +7,7 @@
     autofocus="true"
     autocomplete="false"
     (click)="field.select()"
+    (keydown)="checkEnter($event)"
   />
   <button class="btn" (click)="getPokemon(field.value)">
     {{ loading ? "⏳" : "🔍" }}

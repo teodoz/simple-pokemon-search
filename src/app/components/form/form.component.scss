@@ -1,9 +1,12 @@
 .form {
   display: flex;
-  margin: 16px 0;
+  margin: 16px 8px;
   gap: 8px;
   position: relative;
   width: 400px;
+  @media screen and (max-width: 478px) {
+    width: 100%;
+  }
   .field {
     padding: 8px;
     border-radius: 20px;
