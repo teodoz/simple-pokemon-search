@@ -1,16 +1,25 @@
 import { PokemonService } from 'src/app/services/pokemon.service';
 import { Component } from '@angular/core';
 import { PokemonData } from './models/pokemon.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
   template: ` <div class="container">
       <div class="languages">
-        <button class="flag" (click)="changeLanguage('en')">
-          <img src="assets/en.svg" width="21" height="14" alt="en" />
-        </button>
-        <button class="flag" (click)="changeLanguage('pt-BR')">
-          <img src="assets/pt-br.svg" width="20" alt="pt-BR" />
+        <button
+          *ngFor="let lang of languages"
+          class="flag"
+          (click)="changeLanguage(lang)"
+          [ngClass]="{ active: this.translate.currentLang === lang }"
+          [title]="lang === 'en' ? 'English' : 'Português (Brasil)'"
+        >
+          <img
+            [src]="'assets/' + lang + '.svg'"
+            width="21"
+            [height]="lang === 'en' ? '14' : '15'"
+            [alt]="lang"
+          />
         </button>
       </div>
       <h1>
@@ -43,8 +52,12 @@ export class AppComponent {
   pokemon?: PokemonData;
   tstr: boolean;
   pokemonLogoUrl: string = 'assets/pokemon.svg';
+  languages: string[] = ['pt-BR', 'en'];
 
-  constructor(private pokeService: PokemonService) {
+  constructor(
+    private pokeService: PokemonService,
+    public translate: TranslateService
+  ) {
     pokeService.error.subscribe((err) => (this.tstr = err));
   }
 
@@ -53,7 +66,6 @@ export class AppComponent {
   }
 
   changeLanguage(code: string) {
-    localStorage.setItem('locale', code);
-    window.location.reload();
+    this.translate.use(code);
   }
 }

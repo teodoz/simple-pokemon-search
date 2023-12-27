@@ -8,8 +8,13 @@ import { CardComponent } from './components/card/card.component';
 import { FormComponent } from './components/form/form.component';
 import { FormsModule } from '@angular/forms';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { catchError, forkJoin, of } from 'rxjs';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 export function initApp(http: HttpClient, translate: TranslateService) {
   return () =>
@@ -40,6 +45,10 @@ export function initApp(http: HttpClient, translate: TranslateService) {
     });
 }
 
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
 @NgModule({
   declarations: [AppComponent, CardComponent, FormComponent],
   imports: [
@@ -48,16 +57,31 @@ export function initApp(http: HttpClient, translate: TranslateService) {
     HttpClientModule,
     FormsModule,
     LazyLoadImageModule,
-    TranslateModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initApp,
-      deps: [HttpClient, TranslateService],
-      multi: true,
-    },
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: initApp,
+    //   deps: [HttpClient, TranslateService],
+    //   multi: true,
+    // },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private translate: TranslateService) {
+    // Set default language (e.g., English)
+    this.translate.setDefaultLang('pt-BR');
+    // Add other supported languages
+    this.translate.addLangs(['en']);
+    // Set the current language (you can change this dynamically)
+    this.translate.use('pt-BR');
+  }
+}
