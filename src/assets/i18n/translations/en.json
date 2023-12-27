@@ -1,0 +1,32 @@
+{
+  "main.header.search": "search",
+  "main.header.author.by": "by",
+  "main.form.placeholder": "type name or number",
+  "main.images.whos": "assets/whos-en.png",
+  "main.footer.powerered": "Powered by",
+  "main.footer.copyright": "I do not own the rights to the images and data presented. All data and images are for exclusive experimental use and study purposes. All rights are reserved by The Pokémon Company International, Inc.",
+  "main.tstr.title": "An error ocurred",
+  "main.tstr.description": "Nothing was found. Please trying again.",
+  "main.pokemon.types": {
+    "normal": "normal",
+    "fighting": "fighting",
+    "flying": "flying",
+    "poison": "poison",
+    "ground": "ground",
+    "rock": "rock",
+    "bug": "bug",
+    "ghost": "ghost",
+    "steel": "steel",
+    "fire": "fire",
+    "water": "water",
+    "grass": "grass",
+    "electric": "electric",
+    "psychic": "psychic",
+    "ice": "ice",
+    "dragon": "dragon",
+    "dark": "dark",
+    "fairy": "fairy",
+    "unknown": "unknown",
+    "shadow": "shadow"
+  }
+}

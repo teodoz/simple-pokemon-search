@@ -1,0 +1,32 @@
+{
+  "main.header.search": "busca",
+  "main.header.author.by": "por",
+  "main.form.placeholder": "digite nome ou número",
+  "main.images.whos": "assets/whos-pt.png",
+  "main.footer.powerered": "Potencializado por",
+  "main.footer.copyright": "Não sou possuidor dos direitos sobre as imagens e dados apresentados. Todos os dados e imagens são de uso exclusivamente experimental e para fins de estudo. Todos os direitos são reservados à Pokémon Company Internation, Inc.",
+  "main.tstr.title": "Ocorreu um erro",
+  "main.tstr.description": "Nada foi encontrado. Tente novamente.",
+  "main.pokemon.types": {
+    "normal": "normal",
+    "fighting": "lutador",
+    "flying": "voador",
+    "poison": "vevenoso",
+    "ground": "terrestre",
+    "rock": "pedra",
+    "bug": "inseto",
+    "ghost": "fantasma",
+    "steel": "aço",
+    "fire": "fogo",
+    "water": "água",
+    "grass": "grama",
+    "electric": "elétrico",
+    "psychic": "psíquico",
+    "ice": "gelo",
+    "dragon": "dragão",
+    "dark": "sombrio",
+    "fairy": "fada",
+    "unknown": "desconhecido",
+    "shadow": "sombra"
+  }
+}

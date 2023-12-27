@@ -6,7 +6,8 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { PokemonData } from 'src/app/models/pokemon.model';
+import { of } from 'rxjs';
+import { PokemonData, PokemonList } from 'src/app/models/pokemon.model';
 import { PokemonService } from 'src/app/services/pokemon.service';
 import { environment } from 'src/environments/environment';
 
@@ -22,11 +23,11 @@ export class FormComponent implements OnInit {
 
   loading: boolean = false;
 
-  constructor(private pokeService: PokemonService) {}
-
-  ngOnInit(): void {
-    this.getPokemon('pikachu');
+  constructor(private pokeService: PokemonService) {
+    this.pokeService.pokemonObservable.subscribe((p) => (this.pokemon = p));
   }
+
+  ngOnInit(): void {}
 
   checkEnter(e: KeyboardEvent) {
     if (e.key === 'Enter') {
@@ -36,21 +37,27 @@ export class FormComponent implements OnInit {
 
   getPokemon(name: string) {
     this.loading = true;
+    this.pokeService.pokemonObservable.next(undefined);
+    name = name.replaceAll(' ', '-');
     this.pokeService.getPokemon(name).subscribe({
       next: (res) => {
-        this.pokemon = {
+        this.pokeService.pokemonObservable.next({
           id: res.id,
           name: res.name,
           sprites: res.sprites,
           types: res.types,
-        };
+        });
         this.loading = false;
         this.pokemonEmitter.emit(this.pokemon);
+        this.pokeService.urlImgObservable.next(
+          environment.pokeDex.img + res.id.toString().padStart(3, '0') + '.png'
+        );
+        this.pokeService.error.next(false);
       },
       error: (err) => {
         this.loading = false;
-
-        alert('Pokémon não encontrado! Tente outro nome.');
+        this.pokemonEmitter.emit(undefined);
+        this.pokeService.error.next(true);
       },
     });
   }

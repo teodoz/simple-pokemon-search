@@ -1,16 +1,44 @@
 <div class="card">
-  <div class="title">
-    <h3>
-      {{ pokemon?.name }}
-      <span *ngIf="pokemon?.name === 'entei'">(ta tudo bem agora)</span>
-    </h3>
-  </div>
-  <div class="body">
-    <img [src]="pokemon?.sprites?.front_default" width="250" alt="pokemon" />
-  </div>
-  <div class="stats">
-    <span class="type" *ngFor="let type of pokemon?.types">{{
-      type.type.name
-    }}</span>
-  </div>
+  <ng-container *ngIf="pokemon; else whos">
+    <div class="title">
+      <h3>
+        <span class="num">#{{ pokemon.id.toString().padStart(3, "0") }}</span>
+        {{ pokemon.name }}
+        <span *ngIf="pokemon.name === 'entei'">(ta tudo bem agora)</span>
+      </h3>
+    </div>
+    <div class="body">
+      <img
+        [ngClass]="{ loaded: loaded }"
+        *ngIf="urlImg; else loading"
+        [lazyLoad]="urlImg"
+        (load)="onImageLoad()"
+        width="250"
+        alt="pokemon"
+      />
+      <ng-template #loading>Carregando...</ng-template>
+    </div>
+    <div class="stats">
+      <span
+        class="type"
+        [ngClass]="'background-color-' + type.type.name"
+        *ngFor="let type of pokemon.types"
+        >{{ "main.pokemon.types." + type.type.name | translate }}</span
+      >
+    </div></ng-container
+  >
+  <ng-template #whos class="whos">
+    <img [src]="'main.images.whos' | translate" width="230" alt="whos" />
+  </ng-template>
+</div>
+<div class="pokeapi">
+  {{ "main.footer.powerered" | translate
+  }}<img src="assets/pokeapi.png" alt="pokeapi" /> |
+  <a href="https://pokeapi.co/" target="_blank">https://pokeapi.co/</a>
+</div>
+<div class="copyright">
+  <small
+    >©2023 Pokémon. ©1995 - 2023 Nintendo/Creatures Inc./GAME FREAK inc. TM,
+    ®Nintendo<span>{{ "main.footer.copyright" | translate }}</span></small
+  >
 </div>
