@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-services": {
+    "pokedex": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -12,7 +12,7 @@
       },
       "i18n": {
         "locales": {
-          "pt-BR": "src/locale/messages.pt-BR.xlf"
+          "pt-br": "src/locale/messages.pt-br.xlf"
         }
       },
       "root": "",
@@ -22,7 +22,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-services",
+            "outputPath": "dist/pokedex",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -63,10 +63,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular-services:build:production"
+              "browserTarget": "pokedex:build:production"
             },
             "development": {
-              "browserTarget": "angular-services:build:development"
+              "browserTarget": "pokedex:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -74,7 +74,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-services:build"
+            "browserTarget": "pokedex:build"
           }
         },
         "test": {
