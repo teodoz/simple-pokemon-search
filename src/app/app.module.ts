@@ -19,7 +19,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 export function initApp(http: HttpClient, translate: TranslateService) {
   return () =>
     new Promise<boolean>((resolve: (res: boolean) => void) => {
-      const defaultLocale = 'pt-BR';
+      const defaultLocale = 'pt-br';
       const translationsUrl = '/assets/i18n/translations';
       const sufix = '.json';
       const storageLocale = localStorage.getItem('locale');
@@ -78,10 +78,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 export class AppModule {
   constructor(private translate: TranslateService) {
     // Set default language (e.g., English)
-    this.translate.setDefaultLang('pt-BR');
+    this.translate.setDefaultLang('pt-br');
     // Add other supported languages
     this.translate.addLangs(['en']);
     // Set the current language (you can change this dynamically)
-    this.translate.use('pt-BR');
+    this.translate.use('pt-br');
   }
 }

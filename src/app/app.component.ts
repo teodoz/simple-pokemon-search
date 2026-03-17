@@ -52,13 +52,13 @@ export class AppComponent {
   pokemon?: PokemonData;
   tstr: boolean;
   pokemonLogoUrl: string = 'assets/pokemon.svg';
-  languages: string[] = ['pt-BR', 'en'];
+  languages: string[] = ['pt-br', 'en'];
 
   constructor(
     private pokeService: PokemonService,
-    public translate: TranslateService
+    public translate: TranslateService,
   ) {
-    pokeService.error.subscribe((err) => (this.tstr = err));
+    this.pokeService.error.subscribe((err) => (this.tstr = err));
   }
 
   closeTstr() {

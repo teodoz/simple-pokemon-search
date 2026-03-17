@@ -11,12 +11,15 @@ export class CardComponent implements OnInit {
   @Input() pokemon?: PokemonData;
   urlImg: string;
   loaded: boolean;
+  currentYear: number;
 
   constructor(private pokeService: PokemonService) {
     this.pokeService.urlImgObservable.subscribe((u) => (this.urlImg = u));
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentYear = new Date().getFullYear();
+  }
 
   onImageLoad() {
     this.loaded = true;
