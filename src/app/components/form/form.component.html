@@ -6,6 +6,7 @@
     [placeholder]="'main.form.placeholder' | translate"
     autofocus="true"
     (input)="onInput($event)"
+    (keydown)="onKeyDown($event)"
   />
   <ul *ngIf="!loading && suggestions.length > 0" class="dropdown">
     <div *ngIf="loading">Carregando...</div>
