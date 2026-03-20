@@ -1,7 +1,7 @@
 {
   "main.header.search": "busca",
   "main.header.author.by": "por",
-  "main.form.placeholder": "digite o nome do pokémon e escolha da lista",
+  "main.form.placeholder": "digite nome ou número",
   "main.images.whos": "assets/whos-pt.png",
   "main.footer.powerered": "Potencializado por",
   "main.footer.copyright": "Não sou possuidor dos direitos sobre as imagens e dados apresentados. Todos os dados e imagens são de uso exclusivamente experimental e para fins de estudo. Todos os direitos são reservados à Pokémon Company Internation, Inc.",
