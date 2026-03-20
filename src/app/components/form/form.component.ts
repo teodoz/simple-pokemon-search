@@ -69,6 +69,14 @@ export class FormComponent implements OnInit {
     this.searchTerm.next(value);
   }
 
+  onKeyDown(event: KeyboardEvent) {
+    const value = (event.target as HTMLInputElement).value;
+
+    if (/^\d+$/.test(value) && event.key === 'Enter') {
+      this.getPokemon(value);
+    }
+  }
+
   getPokemon(name: string) {
     this.loading = true;
     this.suggestions = [];
