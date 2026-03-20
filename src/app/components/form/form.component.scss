@@ -23,4 +23,24 @@
     top: 2px;
     cursor: pointer;
   }
+  .dropdown {
+    background: #fff;
+    padding: 8px 8px;
+    border: 1px solid #cfd1e6;
+    position: absolute;
+    top: 30px;
+    font-size: 0.8em;
+    border-radius: 8px;
+    width: calc(100% - 18px);
+    list-style-type: none;
+    li {
+      cursor: pointer;
+      padding: 4px 8px;
+      &:hover {
+        background: #396dae;
+        border-radius: 4px;
+        color: #fff;
+      }
+    }
+  }
 }
