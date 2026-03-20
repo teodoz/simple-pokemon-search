@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PokemonData } from 'src/app/models/pokemon.model';
 import { PokemonService } from 'src/app/services/pokemon.service';
 
@@ -13,8 +13,8 @@ export class CardComponent implements OnInit {
   loaded: boolean;
   currentYear: number;
 
-  constructor(private pokeService: PokemonService) {
-    this.pokeService.urlImgObservable.subscribe((u) => (this.urlImg = u));
+  constructor(private pokemonService: PokemonService) {
+    this.pokemonService.urlImgObservable.subscribe((u) => (this.urlImg = u));
   }
 
   ngOnInit(): void {

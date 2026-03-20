@@ -5,11 +5,15 @@
     type="text"
     [placeholder]="'main.form.placeholder' | translate"
     autofocus="true"
-    autocomplete="false"
-    (click)="field.select()"
-    (keydown)="checkEnter($event)"
+    (input)="onInput($event)"
   />
+  <ul *ngIf="!loading && suggestions.length > 0" class="dropdown">
+    <div *ngIf="loading">Carregando...</div>
+    <li *ngFor="let s of suggestions" (click)="getPokemon(s)">
+      {{ s }}
+    </li>
+  </ul>
   <button class="btn" (click)="getPokemon(field.value)">
-    {{ loading ? "⏳" : "🔍" }}
+    {{ loading ? "⏳" : "" }}
   </button>
 </div>

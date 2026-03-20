@@ -1,5 +1,3 @@
-import { Observable } from 'rxjs';
-
 export type PokemonData = {
   name: string;
   id: number;
@@ -19,4 +17,8 @@ export type PokemonSlotType = {
 export type PokemonList = {
   name: string;
   url: string;
+};
+
+export type AllPokemons = {
+  results: PokemonList[];
 };

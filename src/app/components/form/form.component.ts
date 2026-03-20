@@ -6,7 +6,13 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { of } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  of,
+  Subject,
+  switchMap,
+} from 'rxjs';
 import { PokemonData, PokemonList } from 'src/app/models/pokemon.model';
 import { PokemonService } from 'src/app/services/pokemon.service';
 import { environment } from 'src/environments/environment';
@@ -21,27 +27,46 @@ export class FormComponent implements OnInit {
   @Output() pokemonEmitter = new EventEmitter<PokemonData>();
   @ViewChild('field') field: ElementRef | undefined;
 
+  searchTerm = new Subject<string>();
+  suggestions: string[] = [];
   loading: boolean = false;
 
-  constructor(private pokeService: PokemonService) {
-    this.pokeService.pokemonObservable.subscribe((p) => (this.pokemon = p));
+  constructor(private pokemonService: PokemonService) {
+    this.pokemonService.pokemonObservable.subscribe((p) => (this.pokemon = p));
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Observa o loading do serviço
+    this.pokemonService.loadingPokemons.subscribe((isLoading) => {
+      this.loading = isLoading;
+    });
 
-  checkEnter(e: KeyboardEvent) {
-    if (e.key === 'Enter') {
-      this.getPokemon(this.field?.nativeElement?.value);
-    }
+    // Fluxo de autocomplete
+    this.searchTerm
+      .pipe(
+        debounceTime(200),
+        distinctUntilChanged(),
+        switchMap((term) => this.pokemonService.search(term)),
+      )
+      .subscribe((results) => {
+        this.suggestions = results;
+      });
+  }
+
+  onInput(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.searchTerm.next(value);
   }
 
   getPokemon(name: string) {
     this.loading = true;
-    this.pokeService.pokemonObservable.next(undefined);
+    this.suggestions = [];
+    this.pokemonService.pokemonObservable.next(undefined);
     name = name.replaceAll(' ', '-');
-    this.pokeService.getPokemon(name).subscribe({
+    this.pokemonService.getPokemon(name).subscribe({
       next: (res) => {
-        this.pokeService.pokemonObservable.next({
+        this.field?.nativeElement.blur();
+        this.pokemonService.pokemonObservable.next({
           id: res.id,
           name: res.name,
           sprites: res.sprites,
@@ -49,15 +74,15 @@ export class FormComponent implements OnInit {
         });
         this.loading = false;
         this.pokemonEmitter.emit(this.pokemon);
-        this.pokeService.urlImgObservable.next(
-          environment.pokeDex.img + res.id.toString().padStart(3, '0') + '.png'
+        this.pokemonService.urlImgObservable.next(
+          environment.pokeApiImg.img + res.id.toString() + '.png',
         );
-        this.pokeService.error.next(false);
+        this.pokemonService.error.next(false);
       },
       error: (err) => {
         this.loading = false;
         this.pokemonEmitter.emit(undefined);
-        this.pokeService.error.next(true);
+        this.pokemonService.error.next(true);
       },
     });
   }
