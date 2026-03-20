@@ -14,6 +14,6 @@
     </li>
   </ul>
   <button class="btn" (click)="getPokemon(field.value)">
-    {{ loading ? "⏳" : "" }}
+    {{ loading ? "⏳" : showSearchButton ? "🔍" : "" }}
   </button>
 </div>

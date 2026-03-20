@@ -25,11 +25,12 @@ import { environment } from 'src/environments/environment';
 export class FormComponent implements OnInit {
   pokemon?: PokemonData;
   @Output() pokemonEmitter = new EventEmitter<PokemonData>();
-  @ViewChild('field') field: ElementRef | undefined;
+  @ViewChild('field') field: ElementRef<HTMLInputElement>;
 
   searchTerm = new Subject<string>();
   suggestions: string[] = [];
   loading: boolean = false;
+  showSearchButton: boolean = false;
 
   constructor(private pokemonService: PokemonService) {
     this.pokemonService.pokemonObservable.subscribe((p) => (this.pokemon = p));
@@ -55,6 +56,16 @@ export class FormComponent implements OnInit {
 
   onInput(event: Event) {
     const value = (event.target as HTMLInputElement).value;
+
+    // Se contém número → mostra botão e limpa sugestões
+    if (/^\d+$/.test(value)) {
+      this.suggestions = [];
+      this.showSearchButton = true;
+      return;
+    }
+
+    // Se só tem letras → autocomplete normal
+    this.showSearchButton = false;
     this.searchTerm.next(value);
   }
 
@@ -65,7 +76,6 @@ export class FormComponent implements OnInit {
     name = name.replaceAll(' ', '-');
     this.pokemonService.getPokemon(name).subscribe({
       next: (res) => {
-        this.field?.nativeElement.blur();
         this.pokemonService.pokemonObservable.next({
           id: res.id,
           name: res.name,
@@ -80,6 +90,8 @@ export class FormComponent implements OnInit {
         this.pokemonService.error.next(false);
       },
       error: (err) => {
+        this.field.nativeElement.value = '';
+        this.field.nativeElement.blur();
         this.loading = false;
         this.pokemonEmitter.emit(undefined);
         this.pokemonService.error.next(true);
