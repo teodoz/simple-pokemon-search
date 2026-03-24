@@ -8,15 +8,18 @@
       </h3>
     </div>
     <div class="body">
-      <img
-        [ngClass]="{ loaded: loaded }"
-        *ngIf="urlImg; else loading"
-        [lazyLoad]="urlImg"
-        (load)="onImageLoad()"
-        width="250"
-        alt="pokemon"
-      />
-      <ng-template #loading>Carregando...</ng-template>
+      <div class="image-wrapper">
+        <div class="loading" *ngIf="!loaded"></div>
+        <img
+          class="pokemon-img"
+          [class.loaded]="loaded"
+          [lazyLoad]="urlImg"
+          (load)="onImageLoad()"
+          width="250"
+          height="250"
+          alt="pokemon"
+        />
+      </div>
     </div>
     <div class="stats">
       <span

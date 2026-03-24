@@ -126,3 +126,24 @@ h1 {
     }
   }
 }
+
+.global-loader {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  z-index: 9999;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+.global-loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.global-loader img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}

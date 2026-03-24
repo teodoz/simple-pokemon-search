@@ -5,7 +5,10 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
-  template: ` <div class="container">
+  template: ` <div class="global-loader" [class.hidden]="!loading">
+      <img src="assets/loading.gif" />
+    </div>
+    <div class="container">
       <div class="languages">
         <button
           *ngFor="let lang of languages"
@@ -51,6 +54,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
   pokemon?: PokemonData;
   tstr: boolean;
+  loading: boolean = true;
   pokemonLogoUrl: string = 'assets/pokemon.svg';
   languages: string[] = ['pt-br', 'en'];
 
@@ -59,6 +63,20 @@ export class AppComponent {
     public translate: TranslateService,
   ) {
     this.pokeService.error.subscribe((err) => (this.tstr = err));
+
+    if (typeof window !== 'undefined') {
+      const onLoad = () => {
+        this.loading = false;
+        window.removeEventListener('load', onLoad);
+      };
+      if (document.readyState === 'complete') {
+        onLoad();
+      } else {
+        window.addEventListener('load', onLoad);
+        // fallback: hide loader after 5s
+        setTimeout(() => (this.loading = false), 5000);
+      }
+    }
   }
 
   closeTstr() {
