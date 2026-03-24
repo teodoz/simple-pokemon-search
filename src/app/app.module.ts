@@ -77,11 +77,11 @@ export function HttpLoaderFactory(http: HttpClient) {
 })
 export class AppModule {
   constructor(private translate: TranslateService) {
-    // Set default language (e.g., English)
+    // Definir idioma padrão (por exemplo, 'pt-br')
     this.translate.setDefaultLang('pt-br');
-    // Add other supported languages
+    // Adicionar outros idiomas suportados
     this.translate.addLangs(['en']);
-    // Set the current language (you can change this dynamically)
+    // Definir o idioma atual (pode ser alterado dinamicamente)
     this.translate.use('pt-br');
   }
 }
