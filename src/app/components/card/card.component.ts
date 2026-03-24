@@ -9,12 +9,15 @@ import { PokemonService } from 'src/app/services/pokemon.service';
 })
 export class CardComponent implements OnInit {
   @Input() pokemon?: PokemonData;
-  urlImg: string;
-  loaded: boolean;
+  urlImg: string = '';
+  loaded: boolean = false;
   currentYear: number;
 
   constructor(private pokemonService: PokemonService) {
-    this.pokemonService.urlImgObservable.subscribe((u) => (this.urlImg = u));
+    this.pokemonService.urlImgObservable.subscribe((u) => {
+      this.urlImg = u;
+      this.loaded = false;
+    });
   }
 
   ngOnInit(): void {
