@@ -12,6 +12,8 @@
     border-radius: 8px;
     border: 1px solid rgb(207, 209, 230);
     width: 100%;
+    // prevents zooming in ios devices
+    font-size: 16px;
   }
   .btn {
     padding: 0;
