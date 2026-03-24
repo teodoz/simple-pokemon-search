@@ -23,14 +23,14 @@ export class AppComponent {
   ) {
     this.pokeService.error.subscribe((err) => (this.tstr = err));
 
-    // Hide loader when Angular app is stable (initial rendering complete).
+    // Ocultar carregador quando o aplicativo Angular está estável (renderização inicial concluída).
     this.appRef.isStable
       .pipe(first((stable) => stable === true))
       .subscribe(() => {
         this.loading = false;
       });
-    // fallback: hide loader after 5s in case isStable doesn't emit
-    setTimeout(() => (this.loading = false), 5000);
+    // fallback: ocultar carregador após 5s caso isStable não emita
+    setTimeout(() => (this.loading = false), 2000);
   }
 
   closeTstr() {
