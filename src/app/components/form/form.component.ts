@@ -84,6 +84,7 @@ export class FormComponent implements OnInit {
     name = name.replaceAll(' ', '-');
     this.pokemonService.getPokemon(name).subscribe({
       next: (res) => {
+        this.field.nativeElement.blur();
         this.pokemonService.pokemonObservable.next({
           id: res.id,
           name: res.name,
